@@ -1,29 +1,25 @@
 import { Product } from './constants/product';
+import { IStore } from './store.interface';
 
-export class Store {
-  private store: { product: Product; quantity: number }[];
-  constructor() {
-    this.store = [];
-  }
+export class Store implements IStore {
+  private inventory: Map<Product, number> = new Map();
 
-  addInventory(product: Product, quantity: number) {
-    const inventory = this.store.find((item) => item.product === product);
-    if (inventory) {
-      inventory.quantity += quantity;
-    } else {
-      this.store.push({ product, quantity });
-    }
+  addInventory(product: Product, quantity: number): void {
+    const currentQuantity = this.inventory.get(product) || 0;
+    this.inventory.set(product, currentQuantity + quantity);
   }
 
   getInventory(product: Product): number {
-    const inventory = this.store.find((item) => item.product === product);
-    return inventory ? inventory.quantity : 0;
+    return this.inventory.get(product) || 0;
   }
 
-  removeInventory(product: Product, quantity: number) {
-    const inventory = this.store.find((item) => item.product === product);
-    if (inventory) {
-      inventory.quantity -= quantity;
-    }
+  hasEnoughInventory(product: Product, quantity: number): boolean {
+    const currentQuantity = this.inventory.get(product) || 0;
+    return currentQuantity >= quantity;
+  }
+
+  removeInventory(product: Product, quantity: number): void {
+    const currentQuantity = this.inventory.get(product) || 0;
+    this.inventory.set(product, currentQuantity - quantity);
   }
 }

@@ -1,16 +1,12 @@
 import { Product } from './constants/product';
-import { Store } from './store';
+import { IStore } from './store.interface';
 
 export class Customer {
-  purchase(store: Store, product: Product, quantity: number): boolean {
-    const inventory = store.getInventory(product);
-
-    if (inventory < quantity) {
-      return false;
+  purchase(store: IStore, product: Product, quantity: number): boolean {
+    if (store.hasEnoughInventory(product, quantity)) {
+      store.removeInventory(product, quantity);
+      return true;
     }
-
-    store.removeInventory(product, quantity);
-
-    return true;
+    return false;
   }
 }
