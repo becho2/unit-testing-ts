@@ -1,4 +1,4 @@
-import { Product } from './constants/product';
+import { Product } from '../constants/product';
 
 export interface IStore {
   hasEnoughInventory(product: Product, quantity: number): boolean;

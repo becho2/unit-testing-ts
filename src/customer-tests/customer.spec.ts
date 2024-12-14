@@ -1,10 +1,10 @@
-import { Product } from './constants/product';
+import { Product } from '../constants/product';
 import { Customer } from './customer';
 import { Store } from './store';
 import { IStore } from './store.interface';
 
 describe('예제 2.1) 고전스타일 단위테스트 - purchase', () => {
-  test('Purchase succeeds when enough inventory', () => {
+  test('2.1) Purchase succeeds when enough inventory', () => {
     // given
     const store = new Store();
     store.addInventory(Product.SHAMPOO, 10);
@@ -18,7 +18,7 @@ describe('예제 2.1) 고전스타일 단위테스트 - purchase', () => {
     expect(store.getInventory(Product.SHAMPOO)).toBe(5); // 10개에서 5개 구매, 5개로 감소
   });
 
-  test('Purchase fails when not enough inventory', () => {
+  test('2.1) Purchase fails when not enough inventory', () => {
     // given
     const store = new Store();
     store.addInventory(Product.SHAMPOO, 10);
@@ -44,7 +44,7 @@ describe('예제 2.2) 런던스타일(mocking 사용) 단위테스트 - purchase
     };
   });
 
-  test('Purchase succeeds when enough inventory', () => {
+  test('2.2) Purchase succeeds when enough inventory', () => {
     // given
     mockStore.hasEnoughInventory.mockReturnValue(true);
     const customer = new Customer();
@@ -62,7 +62,7 @@ describe('예제 2.2) 런던스타일(mocking 사용) 단위테스트 - purchase
     expect(mockStore.removeInventory).toHaveBeenCalledTimes(1);
   });
 
-  test('Purchase fails when not enough inventory', () => {
+  test('2.2) Purchase fails when not enough inventory', () => {
     // given
     mockStore.hasEnoughInventory.mockReturnValue(false);
     const customer = new Customer();

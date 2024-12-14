@@ -1,4 +1,4 @@
-import { Product } from './constants/product';
+import { Product } from '../constants/product';
 import { IStore } from './store.interface';
 
 export class Customer {
